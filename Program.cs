@@ -22,11 +22,11 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors();
 
-var rutaJson = Path.Combine(AppContext.BaseDirectory, "Data", "analisis.json");
+var rutaJson = Path.Combine(AppContext.BaseDirectory, "Data", "Analisis.json");
 
 if (!File.Exists(rutaJson))
 {
-  throw new FileNotFoundException("No se encontró el archivo Data/analisis.json.");
+  throw new FileNotFoundException("No se encontró el archivo Data/Analisis.json.");
 }
 
 var opciones = new JsonSerializerOptions
