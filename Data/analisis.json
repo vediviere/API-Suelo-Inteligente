@@ -1,0 +1,792 @@
+[
+  {
+    "analisis_id": "ana_001",
+    "lectura_id": "lec_001",
+    "fecha_procesamiento": "2026-09-24T11:00:00Z",
+    "estado_general": "critico",
+    "puntaje_general": 35,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 5.2,
+        "unidad": "pH",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "pH fuera de norma (acidificación acelerada)."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 2.9,
+        "unidad": "dS/m",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "Acumulación tóxica de sales no asimiladas."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 28.0,
+        "unidad": "%",
+        "estado": "advertencia",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "Tendencia a sequía en la matriz del suelo."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 480,
+        "unidad": "mV",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "Ambiente hiperoxidante, riesgo extremo de estrés oxidativo celular."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 26.0,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "La temperatura del suelo es adecuada."
+      }
+    ],
+    "alertas": [
+      "Múltiples parámetros fuera de rango",
+      "Riesgo de colapso por estrés oxidativo y salino"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Lavado de sustrato y neutralización",
+        "descripcion": "Suspender fertilización y aplicar lavado intensivo con agua amortiguada con corrector pH."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_002",
+    "lectura_id": "lec_002",
+    "fecha_procesamiento": "2026-09-22T17:00:00Z",
+    "estado_general": "critico",
+    "puntaje_general": 42,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.8,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 3.8,
+        "unidad": "dS/m",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "Nivel de salinidad crítico. Riesgo alto de toxicidad por sales y quemadura radicular."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 40.0,
+        "unidad": "%",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "La humedad es adecuada para el cultivo."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 310,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 24.0,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "La temperatura del suelo es adecuada."
+      }
+    ],
+    "alertas": [
+      "Exceso de sales en la solución del suelo"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Lixiviación urgente de sales",
+        "descripcion": "Aplicar un riego de lavado con agua de baja conductividad y suspender el fertirriego temporalmente."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_003",
+    "lectura_id": "lec_003",
+    "fecha_procesamiento": "2026-09-22T18:15:00Z",
+    "estado_general": "advertencia",
+    "puntaje_general": 58,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.4,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 1.9,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "Conductividad en el límite superior recomendado."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 22.0,
+        "unidad": "%",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "Humedad severamente baja. Estrés hídrico detectado en el perfil de raíz."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 380,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 29.5,
+        "unidad": "°C",
+        "estado": "advertencia",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "Temperatura ligeramente superior al rango ideal debido al déficit de humedad."
+      }
+    ],
+    "alertas": [
+      "Estrés hídrico severo detectado"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Programar riego de auxilio",
+        "descripcion": "Iniciar ciclo de riego de inmediato para restablecer el punto de marchitamiento."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_004",
+    "lectura_id": "lec_004",
+    "fecha_procesamiento": "2026-09-22T19:30:00Z",
+    "estado_general": "critico",
+    "puntaje_general": 51,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 4.8,
+        "unidad": "pH",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "Acidez extrema. Riesgo alto de disponibilidad tóxica de Aluminio y Manganeso."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 1.1,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "La conductividad se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 50.0,
+        "unidad": "%",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "La humedad es adecuada para el cultivo."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 290,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 21.0,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "La temperatura del suelo es adecuada."
+      }
+    ],
+    "alertas": [
+      "pH críticamente bajo (Suelo Ácido)"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Aplicación de enmienda calcárea",
+        "descripcion": "Aplicar carbonato de calcio para corregir la acidez y elevar el pH al rango deseado."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_005",
+    "lectura_id": "lec_005",
+    "fecha_procesamiento": "2026-09-22T20:45:00Z",
+    "estado_general": "advertencia",
+    "puntaje_general": 65,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 8.2,
+        "unidad": "pH",
+        "estado": "advertencia",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "Suelo alcalino. Bloqueo potencial en la asimilación de micronutrientes (Hierro, Zinc, Fósforo)."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 0.9,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "La conductividad se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 48.0,
+        "unidad": "%",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "La humedad es adecuada para el cultivo."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 220,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 25.0,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "La temperatura del suelo es adecuada."
+      }
+    ],
+    "alertas": [
+      "Alcalinidad moderada en la zona radicular"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "media",
+        "titulo": "Acidificación del riego",
+        "descripcion": "Dosificar ácido nítrico o fosfórico en el agua de riego y aplicar micronutrientes quelatados."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_006",
+    "lectura_id": "lec_006",
+    "fecha_procesamiento": "2026-09-23T07:10:00Z",
+    "estado_general": "critico",
+    "puntaje_general": 38,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.3,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 1.2,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "La conductividad se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 85.0,
+        "unidad": "%",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "Saturación hídrica severa. Riesgo inminente de asfixia radicular."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 110,
+        "unidad": "mV",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "Condiciones anaeróbicas reductoras detectadas (ambiente pobre en oxígeno)."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 19.0,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "La temperatura del suelo es adecuada."
+      }
+    ],
+    "alertas": [
+      "Anoxia radicular por exceso de drenaje",
+      "Saturación hídrica extremo"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Suspender riego y drenar",
+        "descripcion": "Apagar el sistema de riego de inmediato y revisar las vías de drenaje de las parcelas."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_007",
+    "lectura_id": "lec_007",
+    "fecha_procesamiento": "2026-09-23T13:20:00Z",
+    "estado_general": "advertencia",
+    "puntaje_general": 62,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.7,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 1.6,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "La conductividad se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 33.0,
+        "unidad": "%",
+        "estado": "advertencia",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "Humedad ligeramente inferior al mínimo recomendado."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 310,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 34.2,
+        "unidad": "°C",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "Temperatura del suelo críticamente alta. Riesgo de degradación de raíces absorbentemente jóvenes."
+      }
+    ],
+    "alertas": [
+      "Temperatura extrema en lecho radicular"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Riego de refrigeración o sombreado",
+        "descripcion": "Realizar riegos cortos por microaspersión o colocar mallas de sombreado para enfriar el sustrato."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_008",
+    "lectura_id": "lec_008",
+    "fecha_procesamiento": "2026-09-23T16:00:00Z",
+    "estado_general": "advertencia",
+    "puntaje_general": 71,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.2,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 0.3,
+        "unidad": "dS/m",
+        "estado": "critico",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "Conductividad extremadamente baja. Indique lavado de nutrientes o suelo empobrecido."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 55.0,
+        "unidad": "%",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "La humedad es adecuada para el cultivo."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 260,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 22.0,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "La temperatura del suelo es adecuada."
+      }
+    ],
+    "alertas": [
+      "Deficiencia crítica de iones de nutrientes (CE muy baja)"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "alta",
+        "titulo": "Recargar fertirriego",
+        "descripcion": "Aumentar la concentración del plan nutricional NPK en la solución de riego."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_009",
+    "lectura_id": "lec_009",
+    "fecha_procesamiento": "2026-09-24T08:00:00Z",
+    "estado_general": "optimo",
+    "puntaje_general": 98,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.5,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra en el punto neutro ideal."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 1.5,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "Nutrición y salinidad perfectamente balanceadas."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 48.0,
+        "unidad": "%",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "Retención de agua óptima para absorción continua."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 300,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "Oxigenación en zona radicular en nivel máximo de rendimiento."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 22.5,
+        "unidad": "°C",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "Temperatura idónea para metabolismo celular."
+      }
+    ],
+    "alertas": [],
+    "recomendaciones": [
+      {
+        "prioridad": "baja",
+        "titulo": "Mantener régimen de operación",
+        "descripcion": "Continuar con el programa de fertirriego y monitoreo regular sin modificaciones."
+      }
+    ]
+  },
+  {
+    "analisis_id": "ana_010",
+    "lectura_id": "lec_010",
+    "fecha_procesamiento": "2026-09-24T09:30:00Z",
+    "estado_general": "advertencia",
+    "puntaje_general": 70,
+    "resultados": [
+      {
+        "variable": "ph",
+        "nombre": "pH",
+        "valor": 6.6,
+        "unidad": "pH",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 6.0,
+          "max": 7.0
+        },
+        "mensaje": "El pH se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "conductividad",
+        "nombre": "Conductividad",
+        "valor": 1.3,
+        "unidad": "dS/m",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 0.8,
+          "max": 2.0
+        },
+        "mensaje": "La conductividad se encuentra dentro del rango recomendado."
+      },
+      {
+        "variable": "humedad",
+        "nombre": "Humedad",
+        "valor": 52.0,
+        "unidad": "%",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 35.0,
+          "max": 60.0
+        },
+        "mensaje": "La humedad es adecuada para el cultivo."
+      },
+      {
+        "variable": "orp",
+        "nombre": "ORP",
+        "valor": 280,
+        "unidad": "mV",
+        "estado": "optimo",
+        "rango_recomendado": {
+          "min": 200,
+          "max": 400
+        },
+        "mensaje": "El potencial de oxidación-reducción es adecuado."
+      },
+      {
+        "variable": "temperatura",
+        "nombre": "Temperatura",
+        "valor": 12.0,
+        "unidad": "°C",
+        "estado": "advertencia",
+        "rango_recomendado": {
+          "min": 18.0,
+          "max": 28.0
+        },
+        "mensaje": "Suelo frío. Ralentización en la absorción radicular de Fósforo y desarrollo vegetativo."
+      }
+    ],
+    "alertas": [
+      "Baja temperatura del suelo"
+    ],
+    "recomendaciones": [
+      {
+        "prioridad": "media",
+        "titulo": "Uso de mulching térmico",
+        "descripcion": "Instalar acolchado plástico o mulching orgánico para conservar la radiación solar en la base del cultivo."
+      }
+    ]
+  }
+]
