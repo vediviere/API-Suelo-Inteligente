@@ -1,4 +1,4 @@
-using ApiPiezasArqueologicas.Models;
+using ApiSueloInteligente.Models;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,101 +6,124 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+  options.AddDefaultPolicy(policy =>
+  {
+    policy.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+  });
+});
+
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors();
+
+var rutaJson = Path.Combine(AppContext.BaseDirectory, "Data", "analisis.json");
+
+if (!File.Exists(rutaJson))
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+  throw new FileNotFoundException("No se encontrÃ³ el archivo Data/analisis.json.");
 }
-
-app.UseHttpsRedirection();
-
-var rutaJson = Path.Combine(AppContext.BaseDirectory, "Data", "piezas.json");
-var json = File.ReadAllText(rutaJson);
 
 var opciones = new JsonSerializerOptions
 {
-    PropertyNameCaseInsensitive = true
+  PropertyNameCaseInsensitive = true
 };
 
-var piezas = JsonSerializer.Deserialize<List<Pieza>>(json, opciones) ?? new List<Pieza>();
+var json = File.ReadAllText(rutaJson);
+var analisis = JsonSerializer.Deserialize<List<AnalisisSuelo>>(json, opciones) ?? [];
 
-app.MapGet("/", () => "API de piezas arqueológicas");
+analisis = analisis
+    .OrderByDescending(a => a.FechaProcesamiento)
+    .ToList();
 
-app.MapGet("/piezas", () =>
+app.MapGet("/", () => Results.Ok(new
 {
-    return Results.Ok(piezas);
+  nombre = "API Suelo Inteligente",
+  version = "1.0",
+  registros = analisis.Count
+}));
+
+app.MapGet("/health", () => Results.Ok(new
+{
+  estado = "Disponible"
+}));
+
+app.MapGet("/api/analisis", (int pagina = 1, int cantidad = 20) =>
+{
+  if (pagina < 1)
+  {
+    return Results.BadRequest(new { mensaje = "La pÃ¡gina debe ser mayor que cero." });
+  }
+
+  if (cantidad < 1 || cantidad > 100)
+  {
+    return Results.BadRequest(new { mensaje = "La cantidad debe estar entre 1 y 100." });
+  }
+
+  var total = analisis.Count;
+  var totalPaginas = (int)Math.Ceiling(total / (double)cantidad);
+
+  var datos = analisis
+      .Skip((pagina - 1) * cantidad)
+      .Take(cantidad)
+      .ToList();
+
+  return Results.Ok(new
+  {
+    pagina,
+    cantidad,
+    total,
+    totalPaginas,
+    datos
+  });
 });
 
-app.MapGet("/piezas/{id:int}", (int id) =>
+app.MapGet("/api/analisis/todos", () =>
 {
-    var pieza = piezas.FirstOrDefault(p => p.Id == id);
-
-    return pieza is not null
-        ? Results.Ok(pieza)
-        : Results.NotFound(new { mensaje = "Pieza no encontrada" });
+  return Results.Ok(analisis);
 });
 
-
-app.MapGet("/piezas/buscar", (string texto) =>
+app.MapGet("/api/analisis/ultimo", () =>
 {
-    var resultado = piezas
-        .Where(p =>
-            p.Titulo.Contains(texto, StringComparison.OrdinalIgnoreCase) ||
-            p.Descripcion.Contains(texto, StringComparison.OrdinalIgnoreCase))
-        .ToList();
+  var ultimo = analisis.FirstOrDefault();
 
-    return Results.Ok(resultado);
+  if (ultimo is null)
+  {
+    return Results.NotFound(new { mensaje = "No existen anÃ¡lisis registrados." });
+  }
+
+  return Results.Ok(ultimo);
 });
 
-app.MapGet("/api/abecedario", (IWebHostEnvironment env) =>
+app.MapGet("/api/analisis/{analisisId}", (string analisisId) =>
 {
-    string rutaArchivo = Path.Combine(env.ContentRootPath, "Data", "abecedario.json");
+  var resultado = analisis.FirstOrDefault(a =>
+      a.AnalisisId.Equals(analisisId, StringComparison.OrdinalIgnoreCase));
 
-    if (!File.Exists(rutaArchivo))
-    {
-        return Results.NotFound(new { mensaje = "No se encontró el archivo abecedario.json" });
-    }
+  if (resultado is null)
+  {
+    return Results.NotFound(new { mensaje = "AnÃ¡lisis no encontrado." });
+  }
 
-    string json = File.ReadAllText(rutaArchivo);
-
-    var opciones = new JsonSerializerOptions
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
-    var palabras = JsonSerializer.Deserialize<List<PalabraAbecedario>>(json, opciones);
-
-    return Results.Ok(palabras);
+  return Results.Ok(resultado);
 });
 
-app.MapGet("/api/abecedario/{id:int}", (int id, IWebHostEnvironment env) =>
+app.MapGet("/api/analisis/lectura/{lecturaId}", (string lecturaId) =>
 {
-    string rutaArchivo = Path.Combine(env.ContentRootPath, "Data", "abecedario.json");
+  var resultado = analisis.FirstOrDefault(a =>
+      a.LecturaId.Equals(lecturaId, StringComparison.OrdinalIgnoreCase));
 
-    if (!File.Exists(rutaArchivo))
-    {
-        return Results.NotFound(new { mensaje = "No se encontró el archivo abecedario.json" });
-    }
+  if (resultado is null)
+  {
+    return Results.NotFound(new { mensaje = "Lectura no encontrada." });
+  }
 
-    string json = File.ReadAllText(rutaArchivo);
-
-    var opciones = new JsonSerializerOptions
-    {
-        PropertyNameCaseInsensitive = true
-    };
-
-    var palabras = JsonSerializer.Deserialize<List<PalabraAbecedario>>(json, opciones) ?? new List<PalabraAbecedario>();
-
-    var palabra = palabras.FirstOrDefault(p => p.Id == id);
-
-    if (palabra == null)
-    {
-        return Results.NotFound(new { mensaje = "Palabra no encontrada" });
-    }
-
-    return Results.Ok(palabra);
+  return Results.Ok(resultado);
 });
 
 app.Run();
