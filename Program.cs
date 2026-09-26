@@ -1,5 +1,6 @@
 using ApiSueloInteligente.Models;
 using System.Text.Json;
+using System.Collections.Concurrent;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,21 @@ builder.Services.AddCors(options =>
   });
 });
 
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("Web", policy =>
+  {
+    policy.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+  });
+});
+
 var app = builder.Build();
+
+var lecturas = new ConcurrentQueue<LecturaSensor>();
+
+app.UseCors("Web");
 
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -126,4 +141,102 @@ app.MapGet("/api/analisis/lectura/{lecturaId}", (string lecturaId) =>
   return Results.Ok(resultado);
 });
 
+app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
+{
+  if (string.IsNullOrWhiteSpace(nuevaLectura.DispositivoId))
+  {
+    return Results.BadRequest(new { mensaje = "El dispositivoId es obligatorio." });
+  }
+
+  if (nuevaLectura.Ph < 0 || nuevaLectura.Ph > 14)
+  {
+    return Results.BadRequest(new { mensaje = "El pH debe estar entre 0 y 14." });
+  }
+
+  if (nuevaLectura.Humedad < 0 || nuevaLectura.Humedad > 100)
+  {
+    return Results.BadRequest(new { mensaje = "La humedad debe estar entre 0 y 100." });
+  }
+
+  if (nuevaLectura.Conductividad < 0)
+  {
+    return Results.BadRequest(new { mensaje = "La conductividad no puede ser negativa." });
+  }
+
+  var lectura = new LecturaSensor
+  {
+    LecturaId = $"lec-{Guid.NewGuid().ToString("N")[..8]}",
+    DispositivoId = nuevaLectura.DispositivoId,
+    Cultivo = string.IsNullOrWhiteSpace(nuevaLectura.Cultivo)
+          ? "No especificado"
+          : nuevaLectura.Cultivo,
+    Ph = nuevaLectura.Ph,
+    Conductividad = nuevaLectura.Conductividad,
+    Humedad = nuevaLectura.Humedad,
+    Orp = nuevaLectura.Orp,
+    Temperatura = nuevaLectura.Temperatura,
+    FechaRecepcion = DateTime.UtcNow,
+    Origen = "app-movil",
+    Estado = CalcularEstado(nuevaLectura),
+    Procesado = true
+  };
+
+  lecturas.Enqueue(lectura);
+
+  while (lecturas.Count > 100)
+  {
+    lecturas.TryDequeue(out _);
+  }
+
+  return Results.Created($"/api/lecturas/{lectura.LecturaId}", lectura);
+})
+.WithName("RegistrarLectura");
+
+app.MapGet("/api/lecturas/ultima", () =>
+{
+  var ultima = lecturas.LastOrDefault();
+
+  if (ultima is null)
+  {
+    return Results.NotFound(new { mensaje = "Todavía no se han recibido lecturas." });
+  }
+
+  return Results.Ok(ultima);
+})
+.WithName("ObtenerUltimaLectura");
+
+app.MapGet("/api/lecturas", (int? cantidad) =>
+{
+  var limite = Math.Clamp(cantidad ?? 20, 1, 100);
+  var resultado = lecturas.Reverse().Take(limite).ToList();
+
+  return Results.Ok(new
+  {
+    total = resultado.Count,
+    lecturas = resultado
+  });
+})
+.WithName("ObtenerLecturas");
+
 app.Run();
+
+static string CalcularEstado(NuevaLecturaSensor lectura)
+{
+  if (lectura.Ph < 5 || lectura.Ph > 8 ||
+      lectura.Humedad < 20 || lectura.Humedad > 80 ||
+      lectura.Temperatura < 10 || lectura.Temperatura > 38 ||
+      lectura.Conductividad > 4)
+  {
+    return "critico";
+  }
+
+  if (lectura.Ph < 5.5 || lectura.Ph > 7.5 ||
+      lectura.Humedad < 30 || lectura.Humedad > 70 ||
+      lectura.Temperatura < 15 || lectura.Temperatura > 33 ||
+      lectura.Conductividad > 3)
+  {
+    return "advertencia";
+  }
+
+  return "optimo";
+}
