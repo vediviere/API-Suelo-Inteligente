@@ -1,6 +1,7 @@
 using ApiSueloInteligente.Models;
 using System.Text.Json;
 using System.Collections.Concurrent;
+using ApiSueloInteligente.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 var lecturas = new ConcurrentQueue<LecturaSensor>();
+var analisisLecturas = new ConcurrentQueue<AnalisisLectura>();
 
 app.UseCors("Web");
 
@@ -181,14 +183,26 @@ app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
     Procesado = true
   };
 
+  var analisisLectura = AnalizadorSuelo.Procesar(lectura);
+
   lecturas.Enqueue(lectura);
+  analisisLecturas.Enqueue(analisisLectura);
 
   while (lecturas.Count > 100)
   {
     lecturas.TryDequeue(out _);
   }
 
-  return Results.Created($"/api/lecturas/{lectura.LecturaId}", lectura);
+  while (analisisLecturas.Count > 100)
+  {
+    analisisLecturas.TryDequeue(out _);
+  }
+
+  return Results.Created($"/api/lecturas/{lectura.LecturaId}", new
+  {
+    lectura,
+    analisis = analisisLectura
+  });
 })
 .WithName("RegistrarLectura");
 
@@ -217,6 +231,39 @@ app.MapGet("/api/lecturas", (int? cantidad) =>
   });
 })
 .WithName("ObtenerLecturas");
+
+app.MapGet("/api/lecturas/analisis/ultimo", () =>
+{
+  var ultimo = analisisLecturas.LastOrDefault();
+
+  if (ultimo is null)
+  {
+    return Results.NotFound(new
+    {
+      mensaje = "Todavía no se han procesado lecturas."
+    });
+  }
+
+  return Results.Ok(ultimo);
+})
+.WithName("ObtenerUltimoAnalisisRecibido");
+
+app.MapGet("/api/lecturas/analisis", (int? cantidad) =>
+{
+  var limite = Math.Clamp(cantidad ?? 20, 1, 100);
+
+  var resultado = analisisLecturas
+      .Reverse()
+      .Take(limite)
+      .ToList();
+
+  return Results.Ok(new
+  {
+    total = resultado.Count,
+    analisis = resultado
+  });
+})
+.WithName("ObtenerAnalisisRecibidos");
 
 app.Run();
 

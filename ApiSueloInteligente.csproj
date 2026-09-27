@@ -11,10 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Data\Analisis.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
