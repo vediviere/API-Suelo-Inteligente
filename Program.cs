@@ -33,6 +33,9 @@ var app = builder.Build();
 var lecturas = new ConcurrentQueue<LecturaSensor>();
 var analisisLecturas = new ConcurrentQueue<AnalisisLectura>();
 
+var lecturasPorId = new ConcurrentDictionary<string, LecturaSensor>(
+    StringComparer.OrdinalIgnoreCase);
+
 app.UseCors("Web");
 
 app.UseSwagger();
@@ -150,6 +153,20 @@ app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
     return Results.BadRequest(new { mensaje = "El dispositivoId es obligatorio." });
   }
 
+  if (!string.IsNullOrWhiteSpace(nuevaLectura.LecturaId) &&
+    lecturasPorId.TryGetValue(nuevaLectura.LecturaId.Trim(), out var lecturaExistente))
+  {
+    var analisisExistente = analisisLecturas.FirstOrDefault(a =>
+        a.LecturaId.Equals(lecturaExistente.LecturaId, StringComparison.OrdinalIgnoreCase));
+
+    return Results.Ok(new
+    {
+      lectura = lecturaExistente,
+      analisis = analisisExistente,
+      duplicada = true
+    });
+  }
+
   if (nuevaLectura.Ph < 0 || nuevaLectura.Ph > 14)
   {
     return Results.BadRequest(new { mensaje = "El pH debe estar entre 0 y 14." });
@@ -165,32 +182,62 @@ app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
     return Results.BadRequest(new { mensaje = "La conductividad no puede ser negativa." });
   }
 
+  var lecturaId = string.IsNullOrWhiteSpace(nuevaLectura.LecturaId)
+    ? $"lec-{Guid.NewGuid().ToString("N")[..8]}"
+    : nuevaLectura.LecturaId.Trim();
+
   var lectura = new LecturaSensor
   {
-    LecturaId = $"lec-{Guid.NewGuid().ToString("N")[..8]}",
-    DispositivoId = nuevaLectura.DispositivoId,
+    LecturaId = lecturaId,
+    DispositivoId = nuevaLectura.DispositivoId.Trim(),
+    CampoId = string.IsNullOrWhiteSpace(nuevaLectura.CampoId)
+        ? "campo-sin-asignar"
+        : nuevaLectura.CampoId.Trim(),
+    CampoNombre = string.IsNullOrWhiteSpace(nuevaLectura.CampoNombre)
+        ? "Campo sin asignar"
+        : nuevaLectura.CampoNombre.Trim(),
     Cultivo = string.IsNullOrWhiteSpace(nuevaLectura.Cultivo)
-          ? "No especificado"
-          : nuevaLectura.Cultivo,
+        ? "No especificado"
+        : nuevaLectura.Cultivo.Trim(),
     Ph = nuevaLectura.Ph,
     Conductividad = nuevaLectura.Conductividad,
     Humedad = nuevaLectura.Humedad,
     Orp = nuevaLectura.Orp,
     Temperatura = nuevaLectura.Temperatura,
+    FechaCaptura = nuevaLectura.FechaCaptura?.ToUniversalTime() ?? DateTime.UtcNow,
     FechaRecepcion = DateTime.UtcNow,
     Origen = "app-movil",
-    Estado = CalcularEstado(nuevaLectura),
+    Estado = string.Empty,
     Procesado = true
   };
 
   var analisisLectura = AnalizadorSuelo.Procesar(lectura);
+  lectura.Estado = analisisLectura.EstadoGeneral;
+
+  if (!lecturasPorId.TryAdd(lectura.LecturaId, lectura))
+  {
+    var existente = lecturasPorId[lectura.LecturaId];
+
+    var analisisExistente = analisisLecturas.FirstOrDefault(a =>
+        a.LecturaId.Equals(existente.LecturaId, StringComparison.OrdinalIgnoreCase));
+
+    return Results.Ok(new
+    {
+      lectura = existente,
+      analisis = analisisExistente,
+      duplicada = true
+    });
+  }
 
   lecturas.Enqueue(lectura);
   analisisLecturas.Enqueue(analisisLectura);
 
   while (lecturas.Count > 100)
   {
-    lecturas.TryDequeue(out _);
+    if (lecturas.TryDequeue(out var eliminada))
+    {
+      lecturasPorId.TryRemove(eliminada.LecturaId, out _);
+    }
   }
 
   while (analisisLecturas.Count > 100)
@@ -267,23 +314,3 @@ app.MapGet("/api/lecturas/analisis", (int? cantidad) =>
 
 app.Run();
 
-static string CalcularEstado(NuevaLecturaSensor lectura)
-{
-  if (lectura.Ph < 5 || lectura.Ph > 8 ||
-      lectura.Humedad < 20 || lectura.Humedad > 80 ||
-      lectura.Temperatura < 10 || lectura.Temperatura > 38 ||
-      lectura.Conductividad > 4)
-  {
-    return "critico";
-  }
-
-  if (lectura.Ph < 5.5 || lectura.Ph > 7.5 ||
-      lectura.Humedad < 30 || lectura.Humedad > 70 ||
-      lectura.Temperatura < 15 || lectura.Temperatura > 33 ||
-      lectura.Conductividad > 3)
-  {
-    return "advertencia";
-  }
-
-  return "optimo";
-}

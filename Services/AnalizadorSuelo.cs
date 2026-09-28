@@ -34,7 +34,7 @@ public static class AnalizadorSuelo
         })
         .ToList();
 
-    var recomendaciones = CrearRecomendaciones(alertas, criticos);
+    var recomendaciones = CrearRecomendaciones(alertas, lectura.Cultivo);
 
     return new AnalisisLectura
     {
@@ -91,31 +91,46 @@ public static class AnalizadorSuelo
     return "critico";
   }
 
-  private static List<Recomendacion> CrearRecomendaciones(List<AlertaLectura> alertas, int criticos)
+  private static List<Recomendacion> CrearRecomendaciones(List<AlertaLectura> alertas, string cultivo)
   {
+    var nombreCultivo = string.IsNullOrWhiteSpace(cultivo)
+        ? "el cultivo"
+        : cultivo.Trim();
+
     if (alertas.Count == 0)
     {
       return
       [
         new Recomendacion
-        {
-          Prioridad = "baja",
-          Titulo = "Mantener condiciones actuales",
-          Descripcion = "Las variables se encuentran dentro de los rangos recomendados."
-        }
+      {
+        Prioridad = "baja",
+        Titulo = $"Mantener condiciones para {nombreCultivo}",
+        Descripcion = $"Las variables de {nombreCultivo} se encuentran dentro de los rangos configurados. Se recomienda mantener el monitoreo periódico."
+      }
       ];
     }
 
-    var primeraAlerta = alertas[0];
+    var alertaPrincipal = alertas.FirstOrDefault(a => a.Nivel == "critico")
+        ?? alertas[0];
+
+    var accion = alertaPrincipal.Variable switch
+    {
+      "pH" => $"Verificar la acidez del suelo de {nombreCultivo} y considerar una corrección gradual después de confirmar la medición.",
+      "Conductividad" => $"Revisar la acumulación de sales y la calidad del agua utilizada para el riego de {nombreCultivo}.",
+      "Humedad" => $"Revisar la frecuencia y cantidad de riego aplicada a {nombreCultivo}, evitando tanto sequedad como saturación.",
+      "ORP" => $"Verificar el drenaje y la aireación del suelo donde se encuentra {nombreCultivo}.",
+      "Temperatura" => $"Revisar la exposición del suelo y considerar medidas de protección para las raíces de {nombreCultivo}.",
+      _ => $"Revisar las condiciones actuales de {nombreCultivo} y realizar una nueva medición."
+    };
 
     return
     [
       new Recomendacion
-      {
-        Prioridad = criticos > 0 ? "alta" : "media",
-        Titulo = $"Revisar {primeraAlerta.Variable}",
-        Descripcion = $"{primeraAlerta.Mensaje} Se recomienda realizar seguimiento antes de la siguiente medición."
-      }
+    {
+      Prioridad = alertaPrincipal.Nivel == "critico" ? "alta" : "media",
+      Titulo = $"Revisar {alertaPrincipal.Variable} en {nombreCultivo}",
+      Descripcion = $"{alertaPrincipal.Mensaje} {accion}"
+    }
     ];
   }
 }

@@ -10,6 +10,12 @@ public class LecturaSensor
   [JsonPropertyName("dispositivoId")]
   public string DispositivoId { get; set; } = string.Empty;
 
+  [JsonPropertyName("campoId")]
+  public string CampoId { get; set; } = string.Empty;
+
+  [JsonPropertyName("campoNombre")]
+  public string CampoNombre { get; set; } = string.Empty;
+
   [JsonPropertyName("cultivo")]
   public string Cultivo { get; set; } = string.Empty;
 
@@ -27,6 +33,9 @@ public class LecturaSensor
 
   [JsonPropertyName("temperatura")]
   public double Temperatura { get; set; }
+
+  [JsonPropertyName("fechaCaptura")]
+  public DateTime FechaCaptura { get; set; }
 
   [JsonPropertyName("fechaRecepcion")]
   public DateTime FechaRecepcion { get; set; }
