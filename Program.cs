@@ -61,6 +61,30 @@ analisis = analisis
     .OrderByDescending(a => a.FechaProcesamiento)
     .ToList();
 
+var rutaCatalogo = Path.Combine(
+    AppContext.BaseDirectory,
+    "Data",
+    "CatalogoRegional.json");
+
+if (!File.Exists(rutaCatalogo))
+{
+  throw new FileNotFoundException(
+      "No se encontró el archivo Data/CatalogoRegional.json.");
+}
+
+var jsonCatalogo = File.ReadAllText(rutaCatalogo);
+
+var catalogoRegional =
+    JsonSerializer.Deserialize<CatalogoRegional>(jsonCatalogo, opciones)
+    ?? throw new InvalidOperationException(
+        "No fue posible leer Data/CatalogoRegional.json.");
+
+if (catalogoRegional.Cultivos.Count == 0)
+{
+  throw new InvalidOperationException(
+      "El catálogo regional no contiene cultivos.");
+}
+
 app.MapGet("/", () => Results.Ok(new
 {
   nombre = "API Suelo Inteligente",
@@ -186,6 +210,55 @@ app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
     ? $"lec-{Guid.NewGuid().ToString("N")[..8]}"
     : nuevaLectura.LecturaId.Trim();
 
+  if (string.IsNullOrWhiteSpace(nuevaLectura.Zona))
+  {
+    return Results.BadRequest(new
+    {
+      mensaje = "La zona es obligatoria."
+    });
+  }
+
+  if (string.IsNullOrWhiteSpace(nuevaLectura.Cultivo))
+  {
+    return Results.BadRequest(new
+    {
+      mensaje = "El cultivo es obligatorio."
+    });
+  }
+
+  var cultivoCatalogo = catalogoRegional.Cultivos
+      .FirstOrDefault(elemento =>
+          elemento.Key.Equals(
+              nuevaLectura.Cultivo.Trim(),
+              StringComparison.OrdinalIgnoreCase) ||
+          elemento.Value.NombreComun.Equals(
+              nuevaLectura.Cultivo.Trim(),
+              StringComparison.OrdinalIgnoreCase));
+
+  if (string.IsNullOrWhiteSpace(cultivoCatalogo.Key))
+  {
+    return Results.BadRequest(new
+    {
+      mensaje =
+          $"El cultivo '{nuevaLectura.Cultivo}' no existe en el catálogo regional."
+    });
+  }
+
+  var zonaValida = cultivoCatalogo.Value.ZonasRepresentativas
+      .Any(zona =>
+          zona.Equals(
+              nuevaLectura.Zona.Trim(),
+              StringComparison.OrdinalIgnoreCase));
+
+  if (!zonaValida)
+  {
+    return Results.BadRequest(new
+    {
+      mensaje =
+          $"El cultivo '{cultivoCatalogo.Value.NombreComun}' no está registrado para la zona '{nuevaLectura.Zona}'."
+    });
+  }
+
   var lectura = new LecturaSensor
   {
     LecturaId = lecturaId,
@@ -196,9 +269,8 @@ app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
     CampoNombre = string.IsNullOrWhiteSpace(nuevaLectura.CampoNombre)
         ? "Campo sin asignar"
         : nuevaLectura.CampoNombre.Trim(),
-    Cultivo = string.IsNullOrWhiteSpace(nuevaLectura.Cultivo)
-        ? "No especificado"
-        : nuevaLectura.Cultivo.Trim(),
+    Zona = nuevaLectura.Zona.Trim(),
+    Cultivo = cultivoCatalogo.Value.NombreComun,
     Ph = nuevaLectura.Ph,
     Conductividad = nuevaLectura.Conductividad,
     Humedad = nuevaLectura.Humedad,
@@ -211,7 +283,8 @@ app.MapPost("/api/lecturas", (NuevaLecturaSensor nuevaLectura) =>
     Procesado = true
   };
 
-  var analisisLectura = AnalizadorSuelo.Procesar(lectura);
+  var analisisLectura =
+    AnalizadorSuelo.Procesar(lectura, catalogoRegional);
   lectura.Estado = analisisLectura.EstadoGeneral;
 
   if (!lecturasPorId.TryAdd(lectura.LecturaId, lectura))
@@ -311,6 +384,49 @@ app.MapGet("/api/lecturas/analisis", (int? cantidad) =>
   });
 })
 .WithName("ObtenerAnalisisRecibidos");
+
+app.MapGet("/api/catalogo/zonas", () =>
+{
+  var zonas = catalogoRegional.Cultivos.Values
+      .SelectMany(cultivo => cultivo.ZonasRepresentativas)
+      .Where(zona => !string.IsNullOrWhiteSpace(zona))
+      .Distinct(StringComparer.OrdinalIgnoreCase)
+      .OrderBy(zona => zona)
+      .ToList();
+
+  return Results.Ok(zonas);
+});
+
+app.MapGet("/api/catalogo/zonas/{zona}/cultivos", (string zona) =>
+{
+  var cultivos = catalogoRegional.Cultivos
+      .Where(elemento =>
+          elemento.Value.ZonasRepresentativas.Any(
+              zonaRegistrada =>
+                  zonaRegistrada.Equals(
+                      zona,
+                      StringComparison.OrdinalIgnoreCase)))
+      .Select(elemento => new
+      {
+        id = elemento.Key,
+        nombre = elemento.Value.NombreComun,
+        nombreCientifico = elemento.Value.NombreCientifico,
+        tipo = elemento.Value.Tipo
+      })
+      .OrderBy(cultivo => cultivo.nombre)
+      .ToList();
+
+  if (cultivos.Count == 0)
+  {
+    return Results.NotFound(new
+    {
+      mensaje =
+          $"No existen cultivos registrados para la zona '{zona}'."
+    });
+  }
+
+  return Results.Ok(cultivos);
+});
 
 app.Run();
 

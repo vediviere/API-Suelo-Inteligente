@@ -1,0 +1,858 @@
+{
+  "metadatos": {
+    "titulo": "Catálogo regional de rangos óptimos por cultivo",
+    "region": "Sierra Norte de Puebla, México",
+    "descripcion": "Catálogo unificado de parámetros de suelo y nutrientes por cultivo para análisis regional.",
+    "unidades_nutrientes": "ppm en suelo, salvo que se indique otra unidad",
+    "nota_general": "Los valores son rangos de referencia agronómica generales para la región. Deben ajustarse con un análisis de suelo local, ya que varían según altitud, tipo de suelo y manejo.",
+    "version_esquema": "1.0.0"
+  },
+  "parametros": {
+    "ph": {
+      "nombre": "pH",
+      "categoria": "suelo",
+      "descripcion": "Nivel de acidez o alcalinidad del suelo",
+      "unidad": "pH"
+    },
+    "conductividad_electrica": {
+      "nombre": "Conductividad eléctrica",
+      "categoria": "suelo",
+      "descripcion": "Concentración de sales disueltas en la solución del suelo",
+      "unidad": "dS/m"
+    },
+    "materia_organica": {
+      "nombre": "Materia orgánica",
+      "categoria": "suelo",
+      "descripcion": "Contenido de materia orgánica en el suelo",
+      "unidad": "%"
+    },
+    "humedad": {
+      "nombre": "Humedad",
+      "categoria": "suelo",
+      "descripcion": "Humedad volumétrica del suelo",
+      "unidad": "%"
+    },
+    "temperatura": {
+      "nombre": "Temperatura",
+      "categoria": "suelo",
+      "descripcion": "Temperatura del suelo",
+      "unidad": "°C"
+    },
+    "nitrogeno_N": {
+      "nombre": "Nitrógeno",
+      "categoria": "macronutriente",
+      "descripcion": "Nitrógeno disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "fosforo_P": {
+      "nombre": "Fósforo",
+      "categoria": "macronutriente",
+      "descripcion": "Fósforo disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "potasio_K": {
+      "nombre": "Potasio",
+      "categoria": "macronutriente",
+      "descripcion": "Potasio intercambiable en el suelo",
+      "unidad": "ppm"
+    },
+    "calcio_Ca": {
+      "nombre": "Calcio",
+      "categoria": "nutriente_secundario",
+      "descripcion": "Calcio disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "magnesio_Mg": {
+      "nombre": "Magnesio",
+      "categoria": "nutriente_secundario",
+      "descripcion": "Magnesio disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "azufre_S": {
+      "nombre": "Azufre",
+      "categoria": "nutriente_secundario",
+      "descripcion": "Azufre disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "hierro_Fe": {
+      "nombre": "Hierro",
+      "categoria": "micronutriente",
+      "descripcion": "Hierro disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "zinc_Zn": {
+      "nombre": "Zinc",
+      "categoria": "micronutriente",
+      "descripcion": "Zinc disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "manganeso_Mn": {
+      "nombre": "Manganeso",
+      "categoria": "micronutriente",
+      "descripcion": "Manganeso disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "cobre_Cu": {
+      "nombre": "Cobre",
+      "categoria": "micronutriente",
+      "descripcion": "Cobre disponible en el suelo",
+      "unidad": "ppm"
+    },
+    "boro_B": {
+      "nombre": "Boro",
+      "categoria": "micronutriente",
+      "descripcion": "Boro disponible en el suelo",
+      "unidad": "ppm"
+    }
+  },
+  "cultivos": {
+    "cafe": {
+      "nombre_comun": "Café",
+      "nombre_cientifico": "Coffea arabica",
+      "tipo": "perenne, cultivo de sombra",
+      "zonas_representativas": [
+        "Cuetzalan",
+        "Huehuetla",
+        "Xicotepec",
+        "Zihuateutla",
+        "Tenampulco"
+      ],
+      "notas": "Sensible a suelos con pH mayor a 6.5 por deficiencia inducida de hierro y zinc. Requiere sombra y buen drenaje.",
+      "rangos": {
+        "ph": {
+          "min": 5.0,
+          "optimo": 5.5,
+          "max": 6.0
+        },
+        "conductividad_electrica": {
+          "min": 0.3,
+          "optimo": 0.7,
+          "max": 1.2
+        },
+        "materia_organica": {
+          "min": 3.0,
+          "optimo": 4.5,
+          "max": 6.0
+        },
+        "humedad": {
+          "min": 60,
+          "optimo": 70,
+          "max": 80
+        },
+        "temperatura": {
+          "min": 17,
+          "optimo": 20,
+          "max": 24
+        },
+        "nitrogeno_N": {
+          "min": 30,
+          "optimo": 45,
+          "max": 60
+        },
+        "fosforo_P": {
+          "min": 8,
+          "optimo": 14,
+          "max": 20
+        },
+        "potasio_K": {
+          "min": 150,
+          "optimo": 220,
+          "max": 300
+        },
+        "calcio_Ca": {
+          "min": 800,
+          "optimo": 1200,
+          "max": 2000
+        },
+        "magnesio_Mg": {
+          "min": 120,
+          "optimo": 200,
+          "max": 300
+        },
+        "azufre_S": {
+          "min": 10,
+          "optimo": 16,
+          "max": 25
+        },
+        "hierro_Fe": {
+          "min": 20,
+          "optimo": 45,
+          "max": 80
+        },
+        "zinc_Zn": {
+          "min": 2.0,
+          "optimo": 3.5,
+          "max": 6.0
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 15,
+          "max": 40
+        },
+        "cobre_Cu": {
+          "min": 1.0,
+          "optimo": 2.0,
+          "max": 4.0
+        },
+        "boro_B": {
+          "min": 0.3,
+          "optimo": 0.6,
+          "max": 1.0
+        }
+      }
+    },
+    "maiz": {
+      "nombre_comun": "Maíz",
+      "nombre_cientifico": "Zea mays",
+      "tipo": "anual, ciclo primavera-verano",
+      "zonas_representativas": [
+        "Zacatlán",
+        "Chignahuapan",
+        "Tetela de Ocampo",
+        "Zacapoaxtla"
+      ],
+      "notas": "Cultivo base de la milpa tradicional, comúnmente asociado con frijol y calabaza en la región.",
+      "rangos": {
+        "ph": {
+          "min": 5.8,
+          "optimo": 6.3,
+          "max": 7.0
+        },
+        "conductividad_electrica": {
+          "min": 0.4,
+          "optimo": 1.0,
+          "max": 1.7
+        },
+        "materia_organica": {
+          "min": 2.0,
+          "optimo": 3.0,
+          "max": 4.5
+        },
+        "humedad": {
+          "min": 20,
+          "optimo": 28,
+          "max": 35
+        },
+        "temperatura": {
+          "min": 18,
+          "optimo": 24,
+          "max": 30
+        },
+        "nitrogeno_N": {
+          "min": 25,
+          "optimo": 35,
+          "max": 50
+        },
+        "fosforo_P": {
+          "min": 15,
+          "optimo": 20,
+          "max": 30
+        },
+        "potasio_K": {
+          "min": 120,
+          "optimo": 180,
+          "max": 250
+        },
+        "calcio_Ca": {
+          "min": 1000,
+          "optimo": 1500,
+          "max": 2500
+        },
+        "magnesio_Mg": {
+          "min": 100,
+          "optimo": 160,
+          "max": 250
+        },
+        "azufre_S": {
+          "min": 8,
+          "optimo": 12,
+          "max": 20
+        },
+        "hierro_Fe": {
+          "min": 15,
+          "optimo": 30,
+          "max": 60
+        },
+        "zinc_Zn": {
+          "min": 1.5,
+          "optimo": 2.5,
+          "max": 5.0
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 12,
+          "max": 30
+        },
+        "cobre_Cu": {
+          "min": 0.5,
+          "optimo": 1.2,
+          "max": 2.5
+        },
+        "boro_B": {
+          "min": 0.2,
+          "optimo": 0.5,
+          "max": 0.8
+        }
+      }
+    },
+    "frijol": {
+      "nombre_comun": "Frijol",
+      "nombre_cientifico": "Phaseolus vulgaris",
+      "tipo": "anual, asociado a la milpa",
+      "zonas_representativas": [
+        "Zacatlán",
+        "Tetela de Ocampo",
+        "Chignahuapan",
+        "Cuetzalan"
+      ],
+      "notas": "Fija nitrógeno atmosférico por simbiosis con Rhizobium; sus requerimientos de nitrógeno externo son menores que en el maíz.",
+      "rangos": {
+        "ph": {
+          "min": 6.0,
+          "optimo": 6.5,
+          "max": 7.0
+        },
+        "conductividad_electrica": {
+          "min": 0.3,
+          "optimo": 0.6,
+          "max": 1.0
+        },
+        "materia_organica": {
+          "min": 2.0,
+          "optimo": 3.0,
+          "max": 4.0
+        },
+        "humedad": {
+          "min": 20,
+          "optimo": 27,
+          "max": 35
+        },
+        "temperatura": {
+          "min": 15,
+          "optimo": 20,
+          "max": 27
+        },
+        "nitrogeno_N": {
+          "min": 15,
+          "optimo": 22,
+          "max": 35
+        },
+        "fosforo_P": {
+          "min": 15,
+          "optimo": 22,
+          "max": 30
+        },
+        "potasio_K": {
+          "min": 100,
+          "optimo": 160,
+          "max": 220
+        },
+        "calcio_Ca": {
+          "min": 900,
+          "optimo": 1400,
+          "max": 2200
+        },
+        "magnesio_Mg": {
+          "min": 90,
+          "optimo": 150,
+          "max": 220
+        },
+        "azufre_S": {
+          "min": 8,
+          "optimo": 12,
+          "max": 18
+        },
+        "hierro_Fe": {
+          "min": 15,
+          "optimo": 28,
+          "max": 55
+        },
+        "zinc_Zn": {
+          "min": 1.5,
+          "optimo": 2.5,
+          "max": 4.5
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 10,
+          "max": 25
+        },
+        "cobre_Cu": {
+          "min": 0.5,
+          "optimo": 1.0,
+          "max": 2.0
+        },
+        "boro_B": {
+          "min": 0.2,
+          "optimo": 0.4,
+          "max": 0.7
+        }
+      }
+    },
+    "pimienta_gorda": {
+      "nombre_comun": "Pimienta gorda",
+      "nombre_cientifico": "Pimenta dioica",
+      "tipo": "perenne, árbol de sombra en cafetales",
+      "zonas_representativas": [
+        "Cuetzalan",
+        "Jonotla",
+        "Tuzamapan de Galeana"
+      ],
+      "notas": "Cultivo de traspatio y de sombra en cafetales; alternativa de ingreso ante la caída de los precios del café.",
+      "rangos": {
+        "ph": {
+          "min": 5.5,
+          "optimo": 6.2,
+          "max": 6.8
+        },
+        "conductividad_electrica": {
+          "min": 0.3,
+          "optimo": 0.7,
+          "max": 1.2
+        },
+        "materia_organica": {
+          "min": 3.0,
+          "optimo": 4.5,
+          "max": 6.0
+        },
+        "humedad": {
+          "min": 55,
+          "optimo": 65,
+          "max": 75
+        },
+        "temperatura": {
+          "min": 18,
+          "optimo": 23,
+          "max": 28
+        },
+        "nitrogeno_N": {
+          "min": 25,
+          "optimo": 35,
+          "max": 50
+        },
+        "fosforo_P": {
+          "min": 8,
+          "optimo": 12,
+          "max": 18
+        },
+        "potasio_K": {
+          "min": 130,
+          "optimo": 190,
+          "max": 260
+        },
+        "calcio_Ca": {
+          "min": 800,
+          "optimo": 1200,
+          "max": 1900
+        },
+        "magnesio_Mg": {
+          "min": 110,
+          "optimo": 180,
+          "max": 260
+        },
+        "azufre_S": {
+          "min": 9,
+          "optimo": 14,
+          "max": 22
+        },
+        "hierro_Fe": {
+          "min": 18,
+          "optimo": 35,
+          "max": 65
+        },
+        "zinc_Zn": {
+          "min": 1.8,
+          "optimo": 3.0,
+          "max": 5.0
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 13,
+          "max": 30
+        },
+        "cobre_Cu": {
+          "min": 0.8,
+          "optimo": 1.6,
+          "max": 3.0
+        },
+        "boro_B": {
+          "min": 0.3,
+          "optimo": 0.5,
+          "max": 0.9
+        }
+      }
+    },
+    "cana_de_azucar": {
+      "nombre_comun": "Caña de azúcar",
+      "nombre_cientifico": "Saccharum officinarum",
+      "tipo": "semiperenne",
+      "zonas_representativas": [
+        "Huauchinango",
+        "Xicotepec",
+        "Zihuateutla"
+      ],
+      "notas": "Común en las zonas más bajas y cálidas de la sierra, hacia Huauchinango y Xicotepec.",
+      "rangos": {
+        "ph": {
+          "min": 5.5,
+          "optimo": 6.5,
+          "max": 7.5
+        },
+        "conductividad_electrica": {
+          "min": 0.4,
+          "optimo": 1.0,
+          "max": 1.8
+        },
+        "materia_organica": {
+          "min": 2.0,
+          "optimo": 3.0,
+          "max": 4.5
+        },
+        "humedad": {
+          "min": 25,
+          "optimo": 35,
+          "max": 45
+        },
+        "temperatura": {
+          "min": 20,
+          "optimo": 26,
+          "max": 32
+        },
+        "nitrogeno_N": {
+          "min": 30,
+          "optimo": 45,
+          "max": 60
+        },
+        "fosforo_P": {
+          "min": 10,
+          "optimo": 16,
+          "max": 25
+        },
+        "potasio_K": {
+          "min": 180,
+          "optimo": 260,
+          "max": 350
+        },
+        "calcio_Ca": {
+          "min": 900,
+          "optimo": 1400,
+          "max": 2200
+        },
+        "magnesio_Mg": {
+          "min": 100,
+          "optimo": 160,
+          "max": 240
+        },
+        "azufre_S": {
+          "min": 10,
+          "optimo": 16,
+          "max": 24
+        },
+        "hierro_Fe": {
+          "min": 15,
+          "optimo": 28,
+          "max": 55
+        },
+        "zinc_Zn": {
+          "min": 1.5,
+          "optimo": 2.5,
+          "max": 4.5
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 12,
+          "max": 28
+        },
+        "cobre_Cu": {
+          "min": 0.6,
+          "optimo": 1.1,
+          "max": 2.2
+        },
+        "boro_B": {
+          "min": 0.3,
+          "optimo": 0.5,
+          "max": 0.9
+        }
+      }
+    },
+    "naranja": {
+      "nombre_comun": "Naranja",
+      "nombre_cientifico": "Citrus sinensis",
+      "tipo": "perenne",
+      "zonas_representativas": [
+        "Huauchinango",
+        "Xicotepec",
+        "Venustiano Carranza"
+      ],
+      "notas": "Sensible al exceso de humedad y al mal drenaje; requiere buen aporte de zinc y hierro para evitar clorosis.",
+      "rangos": {
+        "ph": {
+          "min": 5.5,
+          "optimo": 6.2,
+          "max": 6.8
+        },
+        "conductividad_electrica": {
+          "min": 0.3,
+          "optimo": 0.8,
+          "max": 1.4
+        },
+        "materia_organica": {
+          "min": 2.0,
+          "optimo": 3.2,
+          "max": 4.5
+        },
+        "humedad": {
+          "min": 30,
+          "optimo": 40,
+          "max": 50
+        },
+        "temperatura": {
+          "min": 18,
+          "optimo": 24,
+          "max": 30
+        },
+        "nitrogeno_N": {
+          "min": 25,
+          "optimo": 38,
+          "max": 55
+        },
+        "fosforo_P": {
+          "min": 8,
+          "optimo": 13,
+          "max": 20
+        },
+        "potasio_K": {
+          "min": 140,
+          "optimo": 200,
+          "max": 280
+        },
+        "calcio_Ca": {
+          "min": 1000,
+          "optimo": 1600,
+          "max": 2400
+        },
+        "magnesio_Mg": {
+          "min": 120,
+          "optimo": 190,
+          "max": 280
+        },
+        "azufre_S": {
+          "min": 10,
+          "optimo": 15,
+          "max": 22
+        },
+        "hierro_Fe": {
+          "min": 20,
+          "optimo": 38,
+          "max": 70
+        },
+        "zinc_Zn": {
+          "min": 2.0,
+          "optimo": 3.5,
+          "max": 6.0
+        },
+        "manganeso_Mn": {
+          "min": 6,
+          "optimo": 15,
+          "max": 35
+        },
+        "cobre_Cu": {
+          "min": 0.8,
+          "optimo": 1.6,
+          "max": 3.0
+        },
+        "boro_B": {
+          "min": 0.3,
+          "optimo": 0.6,
+          "max": 1.0
+        }
+      }
+    },
+    "platano": {
+      "nombre_comun": "Plátano",
+      "nombre_cientifico": "Musa paradisiaca",
+      "tipo": "perenne, herbáceo",
+      "zonas_representativas": [
+        "Cuetzalan",
+        "Huehuetla",
+        "Jonotla"
+      ],
+      "notas": "Alta demanda de potasio; sensible a la falta de humedad constante.",
+      "rangos": {
+        "ph": {
+          "min": 5.5,
+          "optimo": 6.3,
+          "max": 7.0
+        },
+        "conductividad_electrica": {
+          "min": 0.4,
+          "optimo": 0.9,
+          "max": 1.6
+        },
+        "materia_organica": {
+          "min": 2.5,
+          "optimo": 3.5,
+          "max": 5.0
+        },
+        "humedad": {
+          "min": 40,
+          "optimo": 50,
+          "max": 60
+        },
+        "temperatura": {
+          "min": 20,
+          "optimo": 25,
+          "max": 30
+        },
+        "nitrogeno_N": {
+          "min": 30,
+          "optimo": 45,
+          "max": 60
+        },
+        "fosforo_P": {
+          "min": 8,
+          "optimo": 12,
+          "max": 18
+        },
+        "potasio_K": {
+          "min": 200,
+          "optimo": 300,
+          "max": 400
+        },
+        "calcio_Ca": {
+          "min": 900,
+          "optimo": 1400,
+          "max": 2100
+        },
+        "magnesio_Mg": {
+          "min": 130,
+          "optimo": 200,
+          "max": 300
+        },
+        "azufre_S": {
+          "min": 10,
+          "optimo": 16,
+          "max": 24
+        },
+        "hierro_Fe": {
+          "min": 18,
+          "optimo": 32,
+          "max": 60
+        },
+        "zinc_Zn": {
+          "min": 1.8,
+          "optimo": 3.0,
+          "max": 5.0
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 12,
+          "max": 28
+        },
+        "cobre_Cu": {
+          "min": 0.6,
+          "optimo": 1.2,
+          "max": 2.2
+        },
+        "boro_B": {
+          "min": 0.3,
+          "optimo": 0.5,
+          "max": 0.9
+        }
+      }
+    },
+    "haba": {
+      "nombre_comun": "Haba",
+      "nombre_cientifico": "Vicia faba",
+      "tipo": "anual, zonas altas y frías",
+      "zonas_representativas": [
+        "Chignahuapan",
+        "Zacatlán",
+        "Aquixtla"
+      ],
+      "notas": "Cultivo típico de las partes altas y frías de la sierra; también fija nitrógeno por simbiosis con Rhizobium.",
+      "rangos": {
+        "ph": {
+          "min": 6.0,
+          "optimo": 6.6,
+          "max": 7.2
+        },
+        "conductividad_electrica": {
+          "min": 0.3,
+          "optimo": 0.6,
+          "max": 1.1
+        },
+        "materia_organica": {
+          "min": 2.0,
+          "optimo": 3.0,
+          "max": 4.0
+        },
+        "humedad": {
+          "min": 20,
+          "optimo": 27,
+          "max": 35
+        },
+        "temperatura": {
+          "min": 10,
+          "optimo": 16,
+          "max": 22
+        },
+        "nitrogeno_N": {
+          "min": 12,
+          "optimo": 18,
+          "max": 30
+        },
+        "fosforo_P": {
+          "min": 12,
+          "optimo": 18,
+          "max": 25
+        },
+        "potasio_K": {
+          "min": 100,
+          "optimo": 150,
+          "max": 210
+        },
+        "calcio_Ca": {
+          "min": 1000,
+          "optimo": 1500,
+          "max": 2300
+        },
+        "magnesio_Mg": {
+          "min": 100,
+          "optimo": 155,
+          "max": 230
+        },
+        "azufre_S": {
+          "min": 8,
+          "optimo": 12,
+          "max": 18
+        },
+        "hierro_Fe": {
+          "min": 15,
+          "optimo": 26,
+          "max": 50
+        },
+        "zinc_Zn": {
+          "min": 1.5,
+          "optimo": 2.3,
+          "max": 4.0
+        },
+        "manganeso_Mn": {
+          "min": 5,
+          "optimo": 10,
+          "max": 24
+        },
+        "cobre_Cu": {
+          "min": 0.5,
+          "optimo": 1.0,
+          "max": 2.0
+        },
+        "boro_B": {
+          "min": 0.3,
+          "optimo": 0.5,
+          "max": 0.8
+        }
+      }
+    }
+  }
+}

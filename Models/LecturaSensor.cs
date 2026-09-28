@@ -19,6 +19,8 @@ public class LecturaSensor
   [JsonPropertyName("cultivo")]
   public string Cultivo { get; set; } = string.Empty;
 
+  public string Zona { get; set; } = string.Empty;
+
   [JsonPropertyName("ph")]
   public double Ph { get; set; }
 

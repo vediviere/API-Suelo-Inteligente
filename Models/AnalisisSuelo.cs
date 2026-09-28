@@ -46,6 +46,12 @@ public class ResultadoVariable
   [JsonPropertyName("estado")]
   public string Estado { get; set; } = string.Empty;
 
+  [JsonPropertyName("condicion")]
+  public string Condicion { get; set; } = string.Empty;
+
+  [JsonPropertyName("diferencia_para_rango")]
+  public double DiferenciaParaRango { get; set; }
+
   [JsonPropertyName("rango_recomendado")]
   public RangoRecomendado RangoRecomendado { get; set; } = new();
 
@@ -57,6 +63,9 @@ public class RangoRecomendado
 {
   [JsonPropertyName("min")]
   public double Min { get; set; }
+
+  [JsonPropertyName("optimo")]
+  public double Optimo { get; set; }
 
   [JsonPropertyName("max")]
   public double Max { get; set; }

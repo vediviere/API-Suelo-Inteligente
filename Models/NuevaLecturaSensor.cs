@@ -19,6 +19,8 @@ public class NuevaLecturaSensor
   [JsonPropertyName("cultivo")]
   public string Cultivo { get; set; } = string.Empty;
 
+  public string Zona { get; set; } = string.Empty;
+
   [JsonPropertyName("fechaCaptura")]
   public DateTime? FechaCaptura { get; set; }
 
