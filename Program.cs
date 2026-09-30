@@ -28,10 +28,19 @@ builder.Services.AddCors(options =>
   });
 });
 
+builder.Services.AddHttpClient<ServicioIa>(cliente =>
+{
+  cliente.BaseAddress = new Uri("https://api.groq.com/openai/v1/");
+  cliente.Timeout = TimeSpan.FromSeconds(25);
+});
+
 var app = builder.Build();
 
 var lecturas = new ConcurrentQueue<LecturaSensor>();
 var analisisLecturas = new ConcurrentQueue<AnalisisLectura>();
+var interpretacionesIa =
+    new ConcurrentDictionary<string, InterpretacionIa>(
+        StringComparer.OrdinalIgnoreCase);
 
 var lecturasPorId = new ConcurrentDictionary<string, LecturaSensor>(
     StringComparer.OrdinalIgnoreCase);
@@ -427,6 +436,64 @@ app.MapGet("/api/catalogo/zonas/{zona}/cultivos", (string zona) =>
 
   return Results.Ok(cultivos);
 });
+
+app.MapPost(
+    "/api/lecturas/analisis/{analisisId}/interpretacion-ia",
+    async (
+        string analisisId,
+        ServicioIa servicioIa,
+        CancellationToken cancellationToken) =>
+    {
+      if (interpretacionesIa.TryGetValue(
+          analisisId,
+          out var interpretacionGuardada))
+      {
+        return Results.Ok(interpretacionGuardada);
+      }
+
+      var analisis = analisisLecturas.FirstOrDefault(
+          elemento => elemento.AnalisisId.Equals(
+              analisisId,
+              StringComparison.OrdinalIgnoreCase));
+
+      if (analisis is null)
+      {
+        return Results.NotFound(new
+        {
+          mensaje = "No se encontró el análisis solicitado."
+        });
+      }
+
+      if (!lecturasPorId.TryGetValue(
+          analisis.LecturaId,
+          out var lectura))
+      {
+        return Results.NotFound(new
+        {
+          mensaje = "No se encontró la lectura relacionada."
+        });
+      }
+
+      try
+      {
+        var interpretacion =
+            await servicioIa.GenerarInterpretacionAsync(
+                lectura,
+                analisis,
+                cancellationToken);
+
+        interpretacionesIa[analisisId] = interpretacion;
+
+        return Results.Ok(interpretacion);
+      }
+      catch (Exception error)
+      {
+        return Results.Problem(
+            title: "No fue posible generar la interpretación.",
+            detail: error.Message,
+            statusCode: StatusCodes.Status503ServiceUnavailable);
+      }
+    });
 
 app.Run();
 
